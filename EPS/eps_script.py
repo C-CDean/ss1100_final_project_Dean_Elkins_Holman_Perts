@@ -3,15 +3,19 @@ def available_power(voltage, current):
     Calculates the instantaneous incoming power from the solar panels,
     checking for inputs that exceed the solar panels' maximum limits.
     """
-    # YOUR CODE HERE
-    return 0
+    max_voltage = 28  #  Maximum voltage limit
+    max_current = 10  # Maximum current limit
+    voltage = min(voltage, max_voltage) # Limit voltage to max
+    current = min(current, max_current) # Limit current to max
+    # Power = Voltage * Current
+    power = voltage * current
+    return power
 
 def battery_charging(power_delivered, time_elapsed):
-    """
-    Calculates the total energy available for battery charging.
-    """
-    # YOUR CODE HERE
-    return 0
+    """ Calculates the total energy available for battery charging."""
+    #Energy (in joules) = Power (in watts) * Time (in seconds)
+    energy = power_delivered * time_elapsed
+    return energy
 
 def main():
     """
