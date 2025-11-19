@@ -1,6 +1,7 @@
 import rotate_me
 import time
 import math
+import numpy as np
 
 def calculate_rotation(current_orientation, target_orientation):
     """
@@ -9,13 +10,14 @@ def calculate_rotation(current_orientation, target_orientation):
     """
     # YOUR CODE HERE
     # This function should return a tuple of (x_correction, y_correction, z_correction)
-    return (0, 0, 0)
+    correction = tuple(np.subtract(target_orientation, current_orientation))
+    return (correction)
 
 def main():
     """
     Main function to run the attitude control simulation.
     """
-    target_orientation = (100, 200, 300)
+    target_orientation = (3, 30, 300)
     tolerance = 0.1
     max_iterations = 20
 
