@@ -11,7 +11,13 @@ def process_temperature(input_temp, target_temp):
     applies a function to move it towards equilibrium.
     It should return a single float as the output indicating 
     the new, altered temperature"""
-    return 0 # Delete this line and insert your code starting here!
+    
+    #compute signed temp correction value as temp difference and scale by 25%
+    correction = 0.25 * (target_temp - input_temp)
+    
+    #apply signed correction to input temp to move temp towards target. 
+    corrected_temp = input_temp + correction
+    return corrected_temp
 
 
 ################### DO NOT EDIT BELOW THIS LINE ############################
