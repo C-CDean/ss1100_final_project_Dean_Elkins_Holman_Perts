@@ -24,18 +24,29 @@ def malfunction_detection(thrust_values):
             diff = v_e - MAX_EXHAUST_VELOCITY
             print(f"{thruster} exceeds exhaust velocity limit by {diff:.2f} m/s")
 
-def velocity_change_calculation(m_dot_list, v_e_list, time_list, directions, spacecraft_mass=500):
+def velocity_change_calculation(m_dot_list, v_e_list, time_list, directions=None, spacecraft_mass=500):
     """
-    Calculate delta-v vector for 3 thrusters with given mass flow rates, exhaust velocities, and times.
-    
-    Returns the 3D delta-v vector [ΔVx, ΔVy, ΔVz].
+    Calculate delta-v vector OR scalar depending on inputs.
+
+    If directions is None:
+        Treat inputs as scalars and return a single delta-v value.
+    If directions is provided:
+        Treat inputs as lists and compute a 3D delta-v vector.
     """
-    delta_v_vector = np.zeros(3)  # Initialize [ΔVx, ΔVy, ΔVz]
-    
+
+    # === Case 1: Scalar mode (used by the unit test) ===
+    if directions is None:
+        thrust = m_dot_list * v_e_list           # T = m_dot * v_e
+        delta_v = (thrust * time_list) / spacecraft_mass
+        return delta_v
+
+    # === Case 2: Vector mode (original behavior) ===
+    delta_v_vector = np.zeros(3)
+
     for m_dot, v_e, t, dir_vec in zip(m_dot_list, v_e_list, time_list, directions):
-        dv_mag = (m_dot * v_e * t) / spacecraft_mass  # magnitude
-        delta_v_vector += dv_mag * np.array(dir_vec)  # vector contribution
-    
+        dv_mag = (m_dot * v_e * t) / spacecraft_mass
+        delta_v_vector += dv_mag * np.array(dir_vec)
+
     return delta_v_vector
 
 def main():
